@@ -1,0 +1,61 @@
+<view class="user-info">
+  <r-row row-class="user-header">
+    <r-row>
+      <r-col col="8" offset="8">
+        <view>
+          <view bindtap='onUserHeaderClick'>
+            <image src='{{userInfo.userImage}}' class='image' binderror='onUserImageBindError'></image>
+          </view>
+          <view bindtap='onUserClick'>
+            <text class="userName">{{userInfo.userName}}</text>
+          </view>
+          <view>
+            <text class='userId'>{{userInfo.userId}}</text>
+          </view>
+        </view>
+      </r-col>
+    </r-row>
+    <r-row>
+      <r-col col="12">
+        <view class="class='user-header-item'">
+          <view>
+            <text>{{userInfo.integral}}</text>
+          </view>
+          <text>我的积分</text>
+        </view>
+      </r-col>
+      <r-col col="12">
+        <view class="class='user-header-item'" bindtap='onUserBalanceClick'>
+          <view>
+            <text>{{userInfo.balance}}</text>
+          </view>
+          <text>我的余额</text>
+        </view>
+      </r-col>
+    </r-row>
+  </r-row>
+  <view class='user-menu'>
+    <r-cell-group>
+        <r-cell is-link="true" url="/pages/order/index" linkType="switchTab">
+          <r-icon type="pending-orders"></r-icon>
+          <text>我的订单</text>
+        </r-cell>
+      <r-cell is-link="true" url="/pages/coupon/index" linkType="navigateTo">
+        <r-icon type="coupon"></r-icon>
+        <text>我的优惠券</text>
+      </r-cell>
+    </r-cell-group>
+  </view>
+  <view class="user-menu second">
+    <r-cell-group>
+      <r-cell is-link="true" url="/pages/member_record/index" linkType="navigateTo">
+        <r-icon type="balance-details"></r-icon>
+        <text>消费记录</text>
+      </r-cell>
+      <r-cell is-link="true" url="/pages/member_card/index" linkType="navigateTo">
+        <r-icon type="member-day-privilege"></r-icon>
+        <text>会员中心</text>
+      </r-cell>
+    </r-cell-group>
+  </view>
+</view>

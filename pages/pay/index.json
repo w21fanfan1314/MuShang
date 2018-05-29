@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "支付订单",
+  "usingComponents":{
+    "r-cell" :"/zanui-weapp/dist/cell/index",
+    "r-cell-group": "/zanui-weapp/dist/cell-group/index",
+    "r-panel":"/zanui-weapp/dist/panel/index"
+  }
+}

@@ -1,0 +1,41 @@
+/* pages/member_card/index.wxss */
+@import "/weui/dist/style/weui.wxss";
+
+.page {
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.member_card {
+   height: 350rpx; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+   padding: 24rpx;  
+  background-color: gray;
+  background-repeat: no-repeat;
+  border-radius: 10rpx;
+  margin: 24rpx;
+  color: white;
+  box-shadow: 2px 2px 2px 2px gray;
+}
+
+.member_card > .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* .member_card > .top > r-icon{
+  width: 60rpx;
+  height: 60rpx;
+} */
+
+.member_card_no {
+  font-size: 0.8rem;
+}
+
+.member_card_type {
+  font-size: 1rem;
+}

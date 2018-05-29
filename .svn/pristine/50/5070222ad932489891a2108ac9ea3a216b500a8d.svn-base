@@ -1,0 +1,28 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.r_btn{
+  background-color: orange;
+  color: white;
+}
+
+.r_btn_hover{
+  opacity: 0.7;
+}
+
+.r_plain_btn{
+  background: transparent;
+  border: 1px solid orange;
+}
+
+.r_plain_btn_hover{
+  opacity: .7;
+}

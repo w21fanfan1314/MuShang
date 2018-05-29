@@ -1,0 +1,27 @@
+<scroll-view class="page" scroll-y="true">
+  <view class='page__bd'>
+    <view class='weui-cells__title'>MMB Api 接口列表</view>
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{apis}}" wx:key="actionName" wx:for-item="api" wx:for-index="position">
+        <view class="weui-cell weui-cell_access" hover-class='weui-cell_active' bindtap='onRequestEvent' id='{{position}}'>
+          <view class='weui-cell__bd'>
+            <view>{{api.title}}</view>
+            <view>
+              <text class="action_title">接口:</text>
+              <text class="action_name">{{api.actionName}}</text>
+            </view>
+            <view>
+              <text class="action_title">参数:</text>
+              <text class="action_name">{{api.parameter}}</text>
+            </view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="weui-loadmore weui-loadmore_line">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有啦</view>
+  </view>
+</scroll-view>

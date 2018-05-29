@@ -1,0 +1,30 @@
+<view>
+  <r-panel title="单号:{{payInfo.orderNo}}" hide-border="false">
+    <r-cell-group>
+      <r-cell title="菜品/份">
+        <text class='money' slot="footer">￥{{payInfo.total}}</text>
+      </r-cell>
+      <r-cell title="优惠券" value="￥-{{payInfo.discount}}"></r-cell>
+      <r-cell title="会员卡" value="{{payInfo.memberNo}}" isLink="true"></r-cell>
+      <r-cell title="会员折扣" value="￥-{{payInfo.memberDiscount}}"></r-cell>
+      <r-cell title="实付">
+        <text class='total_money' slot="footer">￥{{payInfo.payMoney}}</text>
+      </r-cell>
+    </r-cell-group>
+  </r-panel>
+
+  <r-panel title="支付方式" hide-border="false">
+    <radio-group>
+      <r-cell-group>
+        <r-cell title="会员卡支付" label="余额:{{payInfo.balance}}  积分:{{payInfo.integral}}" checked="{{payInfo.payMethod == 'member'}}">
+          <radio slot="footer"></radio>
+        </r-cell>
+        <r-cell title="微信支付" checked="{{payInfo.payMethod == 'wx'}}">
+          <radio slot="footer"></radio>
+        </r-cell>
+      </r-cell-group>
+    </radio-group>
+  </r-panel>
+
+  <button type='' class='r_btn' hover-class='r_btn_hover' size='large'>支付￥{{payInfo.payMoney}}</button>
+</view>

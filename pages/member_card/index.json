@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的会员",
+  "usingComponents" : {
+    "r-icon":"/zanui-weapp/dist/icon/index",
+    "r-popup":"/zanui-weapp/dist/popup/index"
+  }
+}

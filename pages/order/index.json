@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的订单",
+  "usingComponents": {
+    "r-dialog": "/zanui-weapp/dist/dialog/index",
+    "shop-info": "/com/shop_info/index"
+  }
+}

@@ -1,0 +1,14 @@
+/* pages/api/index.wxss */
+@import "/weui/dist/style/weui.wxss";
+@import "/weui/dist/app.wxss";
+
+
+.action_title {
+  font-size: 1rem;
+  color: black;
+}
+
+.action_name {
+  font-size: .8rem;
+  color: #999;
+}

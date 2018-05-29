@@ -1,0 +1,33 @@
+<view class='shop_list'>
+  <scroll-view scroll-y="true" class='city'>
+    <block wx:for="{{cityList}}" wx:key="id" wx:for-item="city" wx:for-index="position">
+      <view class="{{selectCity.id == city.id ? 'select_city': ''}}" bindtap='onCityClick' id='{{position}}'>
+        <view class='city_item'>
+          <block wx:if="{{currentCity.name == city.name}}">
+            <view class='current_city'>
+              <r-cell>
+                <r-icon type="location"></r-icon>
+                <text>{{currentCity.name}}</text>
+              </r-cell>
+            </view>
+          </block>
+          <block wx:else>
+            <r-cell title="{{city.name}}" isLink="true"></r-cell>
+          </block>
+
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <scroll-view scroll-y="true" class='shops'>
+    <r-cell-group>
+      <block wx:for="{{shops}}" wx:key="id" wx:for-item="shop">
+        <navigator >
+          <view class='shop_item'>
+            <r-cell title="{{shop.shopName}}" label="{{shop.addr}}" isLink="true"></r-cell>
+          </view>
+        </navigator>
+      </block>
+    </r-cell-group>
+  </scroll-view>
+</view>

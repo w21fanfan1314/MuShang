@@ -1,0 +1,71 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-panel">
+      <view class="weui-panel__bd">
+        <view class='weui-media-box weui-media-box_appmsg'>
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="/assets/user-header.jpg" />
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{shopInfo.shopName}}</view>
+            <view class="weui-media-box__desc">{{shopInfo.shopAddr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">订单明细</view>
+    <view class="weui-panel">
+      <view class='weui-panel__hd'>{{shopInfo.shopName}}</view>
+      <view class="weui-panel__bd">
+        <block wx:for="{{products}}" wx:key="productName" wx:for-item="product">
+          <view class="weui-cell">
+            <view class='weui-cell__hd'>
+              <view class='weui-lable'>{{product.productName}}</view>
+            </view>
+            <view class="weui-cell__bd"></view>
+            <view class="weui-cell__ft">
+              <text class='buy_count'>x{{product.count}}</text>￥{{product.price}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class='weui-cells__title'>消费总额</view>
+    <view class='weui-panel'>
+      <view class='weui-panel__bd'>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>酒水总额</view>
+          <view class='weui-cell__ft'>￥{{order.sum}}</view>
+        </view>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>小礼品</view>
+          <view class='weui-cell__ft'>￥{{order.presentMoney}}</view>
+        </view>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>总计</view>
+          <view class='weui-cell__ft'>
+            <text class='total_money'>￥{{order.total}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='weui-cells__title'>订单信息</view>
+    <view class='weui-panel'>
+      <view class='weui-panel__bd'>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>台号</view>
+          <view class='weui-cell__ft'>{{order.siteNo}}</view>
+        </view>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>订单号</view>
+          <view class='weui-cell__ft'>{{order.orderNo}}</view>
+        </view>
+        <view class='weui-cell'>
+          <view class='weui-cell__bd'>下单时间</view>
+          <view class='weui-cell__ft'>{{order.createTime}}</view>
+        </view>
+      </view>
+    </view>
+
+    <button type='' class='r_btn' hover-class='r_btn_hover' bindtap='onCommitClick'>提交订单</button>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+<view class="order_shop_info">
+  <image src='{{image}}' class='order_shop_image'></image>
+  <view>
+    <view class='order_shop_name'>{{name}}</view>
+    <view class='order_shop_address'>{{addr}}</view>
+  </view>
+</view>
