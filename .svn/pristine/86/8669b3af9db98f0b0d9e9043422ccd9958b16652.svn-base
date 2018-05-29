@@ -1,7 +1,0 @@
-/* pages/msg/index.wxss */
-@import "/weui/dist/app.wxss";
-@import "/weui/dist/style/weui.wxss";
-
-page{
-  background-color: white;
-}

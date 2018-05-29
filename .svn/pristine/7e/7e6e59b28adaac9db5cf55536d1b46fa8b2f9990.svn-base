@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "提交订单",
-  "usingComponents": {
-    "shop-info": "/com/shop_info/index"
-  }
-}

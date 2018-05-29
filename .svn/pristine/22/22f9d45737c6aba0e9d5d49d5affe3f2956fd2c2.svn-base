@@ -1,9 +1,0 @@
-/* pages/member/index.wxss */
-@import "/weui/dist/app.wxss";
-@import "/weui/dist/style/weui.wxss";
-/* @import "/weui/dist/example/index.wxss"; */
-
-.form-content{
-  background-color: white;
-  margin-top: 24rpx;
-}

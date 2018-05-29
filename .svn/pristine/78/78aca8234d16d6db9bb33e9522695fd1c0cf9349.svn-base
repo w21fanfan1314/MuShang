@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "会员充值",
-  "usingComponents": {
-    "r-row": "/zanui-weapp/dist/row/index",
-    "r-col":"/zanui-weapp/dist/col/index"
-  }
-}
