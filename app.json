@@ -12,7 +12,8 @@
     "pages/member_record/index",
     "pages/order/index",
     "pages/coupon/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/login/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

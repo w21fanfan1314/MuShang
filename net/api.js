@@ -128,7 +128,8 @@ const MMBApi = function (action, prefix) {
     let str = "";
     let index = 0;
     for (let p in _params) {
-      str += ((index == 0) ? "" : "&") + encodeURIComponent(p) + "=" + encodeURIComponent(_params[p]);
+      // str += ((index == 0) ? "" : "&") + encodeURIComponent(p) + "=" + encodeURIComponent(_params[p]);
+      str += ((index == 0) ? "" : "&") + p  + "=" + _params[p];
       index ++;
     }
     return str;

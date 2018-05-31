@@ -1,15 +1,15 @@
 const USER_KEY = "user.info";
 
-{
-  // 测试的openId
-  wx.setStorage({
-    key: 'user.info',
-    data: { "openId":"oigi0wD2mClkETiBun8VRk3N3wrE"},
-    success: function(res) {},
-    fail: function(res) {},
-    complete: function(res) {},
-  })
-}
+// {
+//   // 测试的openId
+//   wx.setStorage({
+//     key: 'user.info',
+//     data: { "openId":"oigi0wD2mClkETiBun8VRk3N3wrE"},
+//     success: function(res) {},
+//     fail: function(res) {},
+//     complete: function(res) {},
+//   })
+// }
 
 const info = () => {
   let infoValue = wx.getStorageSync(USER_KEY);
