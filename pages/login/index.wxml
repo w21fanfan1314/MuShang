@@ -1,10 +1,10 @@
-<view>
+<view class='container'>
   <view class='header'>
     <image class='user_image' src='{{userImage}}' wx:if="{{userImage}}"></image>
     <label class='user_name'>{{userName}}</label>
   </view>
 
   <view class='message'>
-  <button open-type='getUserInfo' type='primary' plain='true' bindgetuserinfo="onGetUserInfo" loading='{{isLogin}}'>使用微信授权登录</button>
+  <button open-type='getUserInfo' type='primary' plain='true' bindgetuserinfo="onGetUserInfo" loading='{{isLogin}}' disabled='{{isLogin}}'>{{btnText}}</button>
   </view>
 </view>

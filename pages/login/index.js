@@ -11,7 +11,8 @@ Page({
     user: null,
     isLogin: true,
     userImage: "",
-    userName: ""
+    userName: "",
+    btnText: "登录中..."
   },
 
   /**
@@ -19,28 +20,40 @@ Page({
    */
   onGetUserInfo:function(res){
     console.log(res)
-    callLogin();
+    this.data.user.reapCount = 1
+    this.callLogin();
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let self = this;
-
     this.data.user = new MSUser();
-    callLogin();
+    this.callLogin();
   },
 
   /**
    * 调用用户登录授权流程
    */
   callLogin: function(){
+    let self = this;
+    self.setData({ btnText: '登录中', isLogin: true })
     this.data.user.login({
       userInfoCall: function (userInfo) {
         self.setData({ userName: userInfo.nickName, userImage: userInfo.avatarUrl })
       },
       success: function () {
         // 可进入系统
+        wx.navigateTo({
+          url: 'pages/shop/index',
+        })
+      },
+      fail: function(){
+        wx.showToast({
+          title: '请点击 授权进入',
+          icon: "none",
+          duration: 2000
+        })
+        self.setData({btnText:'授权进入', isLogin: false})
       }
     });
   },

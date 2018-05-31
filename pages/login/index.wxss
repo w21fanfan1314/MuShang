@@ -1,28 +1,37 @@
 /* pages/login/index.wxss */
-.header{
+
+.container {
+  background-color: #f4c119;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding-top: 24rpx;
 }
-.user_name
-{
+
+.user_name {
   font-size: 1rem;
-  color: #000;
+  color: #fff;
   margin-top: 18rpx;
 }
 
-.user_image{
-  border: 6rpx solid #000;
-  width: 120rpx;
-  height: 120rpx;
+.user_image {
+  border: 6rpx solid #fff;
+  width: 150rpx;
+  height: 150rpx;
   border-radius: 50%;
   background-color: #fff;
 }
 
-.message
-{
+.message {
+  position: fixed;
+  bottom: 50rpx;
   display: flex;
-  flex-direction: row;
-  margin-top: 44%;
+  text-align: center;
+  width: 100%;
 }
