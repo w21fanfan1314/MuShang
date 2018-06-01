@@ -12,6 +12,14 @@ export default class MMBApiList extends MMBApi {
   }
 
   /**
+   * 获取会员卡列表
+   */
+  fetchMemberCards(pageSize, pageOn, render)
+  {
+    super.doApi(render, this.prefix, "GetMemberCardList", { _pagesize: pageSize, _pageno: pageOn})
+  }
+
+  /**
    * 根据门店的标识，拉去服务器门店数据
    * @params shopCode 门店标识
    */

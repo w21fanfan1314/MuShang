@@ -2,11 +2,11 @@
   <view class="page__bd">
     <view class='member_card'>
       <view class='top'>
-        <text class="member_card_type">会员卡类型</text>
+        <text class="member_card_type">{{memberCardInfo.cardType}}</text>
         <r-icon type="card" bindtap='onCardClick'></r-icon>
       </view>
       <view>
-        <text class='member_card_no'>会员卡号</text>
+        <text class='member_card_no'>{{memberCardInfo.cardNo}}</text>
       </view>
     </view>
     <view class="weui-cells weui-cells_after-title">

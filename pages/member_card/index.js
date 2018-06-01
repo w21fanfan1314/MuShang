@@ -1,4 +1,5 @@
 // pages/member_card/index.js
+import MSMember from "../../core/MSMember.js";
 
 Page({
 
@@ -21,6 +22,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let member = new MSMember();
+    let self = this;
+    wx.showLoading({
+      title: '获取会员信息中',
+    });
+    member.cardList({
+      success: (card)=>{
+        self.setData({ memberCardInfo: {
+          cardNo: card.cardNo,
+          cardType: card.cardType,
+          infos: [
+            { title: '姓名', text: card.cardCreatorName},
+            { title: '手机号', text: card.cardCreatorPhone },
+            { title: '性别', text: card.sex },
+            { title: '生日', text: card.cardCreatorBirthday },
+            { title: '邮箱', text: card.cardCreatorEmail == undefined || card.cardCreatorEmail == null ? "" : card.cardCreatorEmail }
+          ]
+        }})
+      },
+      done: ()=>
+      {
+        wx.hideLoading()
+      }
+    });
   },
 
   /**
