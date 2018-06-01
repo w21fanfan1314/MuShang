@@ -1,5 +1,13 @@
 import MSUser from "../../core/MSUser.js"
 import user from "../../net/user.js";
+import MSShop from "../../core/MSShop.js";
+
+// 台号
+const SITE_NO = "site";
+// 门店标识
+const LID = "lid";
+// 门店域名
+const SERVER = "server";
 
 // pages/login/index.js
 Page({
@@ -27,8 +35,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.user = new MSUser();
-    this.callLogin();
+    let shop = new MSShop();
+    let site = options[SITE_NO];
+    let lid = options[LID];
+    let server = options[SERVER];
+
+    shop.tableNo = site;
+    shop.getShopInfoByCode(lid)
+    
+    let self = this;
+    // 在获取完成门店数据后， 在请求用户信息接口
+    shop.apiCall = ()=>{
+      self.data.user = new MSUser();
+      self.callLogin();
+    }
   },
 
   /**
@@ -43,7 +63,7 @@ Page({
       },
       success: function () {
         // 可进入系统
-        wx.redirectTo({
+        wx.switchTab({
           url: '/pages/shop/index',
           success: res=>
           {

@@ -8,11 +8,13 @@ import MMBApiList from "MMBApiList.js";
  */
 export default class MSShop {
   // 门店信息
-  shop = undefined;
+  _shop = undefined;
   // 已选台号
-  tableNo = "";
+  _tableNo = "";
 
   _api = undefined;
+  // 获取完成门店详情，所回调的函数
+  apiCall = undefined;
 
   constructor() {
     let self = this;
@@ -20,13 +22,13 @@ export default class MSShop {
       key: SHOP_INFO_KEY,
       success: function (res) {
         if (res.data && null != res.data)
-          self.shop = JSON.parse(res.data);
+          self._shop = JSON.parse(res.data);
       },
     });
     wx.getStorage({
       key: SELECT_TABLE_KEY,
       success: function (res) {
-        self.tableNo = res.data;
+        self._tableNo = res.data;
       },
     });
 
@@ -42,12 +44,17 @@ export default class MSShop {
       onResp: res => {
         console.log(res);
         if (res && res.code == 1) {
-
+          self.shop = res.data
+          if (self.apiCall) {
+            self.apiCall();
+          }
         } else {
           wx.reLaunch({
             url: '/pages/notfound/index?msg=发生错误, 请关闭重新进入!&sub=' + res.msg
           })
         }
+
+
       }
     });
   }
@@ -59,21 +66,14 @@ export default class MSShop {
         key: SHOP_INFO_KEY,
         data: JSON.stringify(shopValue),
         success: res => {
-          wx.getStorage({
-            key: SHOP_INFO_KEY,
-            success: function (res) {
-              console.log(res)
-              if (res.data && res.data != undefined && "undefined" != res.data)
-                self.shop = JSON.parse(res.data);
-            },
-          });
+          self._shop = shopValue;
         }
       });
     }
   }
 
   get shop() {
-    return this.shop;
+    return this._shop;
   }
 
   set tableNo(tableNo) {
@@ -82,17 +82,12 @@ export default class MSShop {
       key: SELECT_TABLE_KEY,
       data: tableNo,
       success: function (res) {
-        wx.getStorage({
-          key: SELECT_TABLE_KEY,
-          success: function (res) {
-            self.tableNo = res.data;
-          },
-        });
+        self._tableNo = tableNo;
       }
     });
   }
 
   get tableNo() {
-    return this.tableNo;
+    return this._tableNo;
   }
 }

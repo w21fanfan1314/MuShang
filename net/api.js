@@ -1,5 +1,16 @@
 var util = require("../utils/util.js");
 var user = require("user.js");
+
+function server()
+{
+  let data = wx.getStorageSync("shop.info")
+  
+  if (data)
+  {
+    return JSON.parse(data)
+  }
+  return undefined;
+}
 /**
    * 执行网络请求
    * @params action 请求的MMB API名称
@@ -7,6 +18,7 @@ var user = require("user.js");
    * @params externalParams 外部请求的参数， 不通过封装直接放在参数中的
    */
 const MMBApi = function (action, prefix) {
+  console.log("门店服务器地址:", server())
   // 接口加密方式
   const TYPE_TOKEN = "xor";
   // 接口基础的地址

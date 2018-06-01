@@ -1,24 +1,12 @@
 //app.js
-import MSShop from "/core/MSShop.js";
-
-// 台号
-const SITE_NO = "site";
-// 门店标识
-const LID = "lid";
-
 App({
   onLaunch: function (opts) {
-    this.globalData.shop = new MSShop();
     switch (parseInt(opts.scene)) {
       case 1011:
       case 1012:
       case 1013:
         // 通过二维码进入小程序
-        let site = opts.query[SITE_NO];
-        let lid = opts.query[LID];
-
-        this.globalData.shop.tableNo = site;
-        this.globalData.shop.getShopInfoByCode(lid)
+       
         break;
       default:
         // 控制必须从扫码的场景中进入
@@ -62,7 +50,6 @@ App({
     // })
   },
   globalData: {
-    // 当前选择的门店
-    shop: undefined
+
   }
 })
