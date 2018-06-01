@@ -12,6 +12,14 @@ export default class MMBApiList extends MMBApi {
   }
 
   /**
+   * 根据门店的标识，拉去服务器门店数据
+   * @params shopCode 门店标识
+   */
+  fetchShopInfoByCode(shopCode, render){
+    super.doApi(render, this.prefix, "GetUserDepartment", { _shopCode: shopCode })
+  }
+
+  /**
    * 获取的凭证信息
    * @params code 通过小程序获得必要参数code
    * @return {openID:"",  session_key: ""} 

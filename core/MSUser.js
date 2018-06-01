@@ -138,7 +138,7 @@ export default class MSUser {
                     self._showReLoginDialog(res.msg)
                   } else {
                     // 获取用户信息成功
-                    userInfo.__proto__ = res.data;
+                    Object.assign(userInfo, res.data)
                     self._saveUserInfo(userInfo)
                     // 调用成功
                     if (this.call) {
@@ -175,11 +175,12 @@ export default class MSUser {
    */
   _saveUserInfo(userInfo) {
     let self = this;
+    console.log(userInfo)
     wx.setStorage({
       key: 'user.info',
       data: userInfo,
       success: function (res) {
-        console.log("更新用户信息:" + res)
+        console.log("更新用户信息:" + JSON.stringify(res))
       },
       fail: function (res) {
         // 必须保证所有的信息保存完整

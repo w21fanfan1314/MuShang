@@ -1,0 +1,5 @@
+<view class="page" scroll-y="false">
+  <icon type="clear" size='100' color="gray"></icon>
+  <text class="text">{{text}}</text>
+  <text class='sub'>{{subText}}</text>
+</view>

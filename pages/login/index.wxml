@@ -5,6 +5,6 @@
   </view>
 
   <view class='message'>
-  <button open-type='getUserInfo' type='primary' plain='true' bindgetuserinfo="onGetUserInfo" loading='{{isLogin}}' disabled='{{isLogin}}'>{{btnText}}</button>
+    <button open-type='getUserInfo' type='default' bindgetuserinfo="onGetUserInfo" loading='{{isLogin}}' disabled='{{isLogin}}'>{{btnText}}</button>
   </view>
 </view>

@@ -51,9 +51,18 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "登录",
-					"pathName": "pages/login/index"
+					"pathName": "pages/login/index",
+					"query": "lid=8888&site=01",
+					"scene": "1011"
+				},
+				{
+					"id": 4,
+					"name": "未知页面",
+					"pathName": "pages/notfound/index",
+					"query": "",
+					"scene": "1001"
 				}
 			]
 		}

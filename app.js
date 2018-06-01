@@ -1,17 +1,33 @@
 //app.js
+import MSShop from "/core/MSShop.js";
+
+// 台号
+const SITE_NO = "site";
+// 门店标识
+const LID = "lid";
+
 App({
   onLaunch: function (opts) {
-    switch(opts.scene){
+    this.globalData.shop = new MSShop();
+    switch (parseInt(opts.scene)) {
       case 1011:
       case 1012:
       case 1013:
-      // 通过二维码进入小程序
-        var site = opts.query["site"];
-        var shopName = opts.query['shopName'];
-        var lid = opts.query["lid"];
+        // 通过二维码进入小程序
+        let site = opts.query[SITE_NO];
+        let lid = opts.query[LID];
 
-        console.log(shopName, lid, site)
-      break;
+        this.globalData.shop.tableNo = site;
+        this.globalData.shop.getShopInfoByCode(lid)
+        break;
+      default:
+        // 控制必须从扫码的场景中进入
+        wx.reLaunch({
+          url: '/pages/notfound/index?msg=请使用扫码的方式进入程序&sub=请扫描台面的二维码',
+          fail: res => {
+            console.log(res)
+          }
+        })
     }
     // 展示本地存储能力
     // var logs = wx.getStorageSync('logs') || []
@@ -46,7 +62,7 @@ App({
     // })
   },
   globalData: {
-    userInfo: null,
-    shopInfo: {shopName: null, lid: null, site: undefined}
+    // 当前选择的门店
+    shop: undefined
   }
 })

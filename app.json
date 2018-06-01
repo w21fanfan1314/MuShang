@@ -13,7 +13,8 @@
     "pages/order/index",
     "pages/coupon/index",
     "pages/logs/logs",
-    "pages/login/index"
+    "pages/login/index",
+    "pages/notfound/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

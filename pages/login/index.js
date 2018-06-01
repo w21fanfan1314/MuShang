@@ -43,9 +43,17 @@ Page({
       },
       success: function () {
         // 可进入系统
-        wx.navigateTo({
-          url: 'pages/shop/index',
-        })
+        wx.redirectTo({
+          url: '/pages/shop/index',
+          success: res=>
+          {
+            console.log(res)
+          },
+          fail: res=>{
+            console.log(res)
+          }
+        });
+        self.setData({ btnText: '授权进入', isLogin: false })
       },
       fail: function(){
         wx.showToast({
