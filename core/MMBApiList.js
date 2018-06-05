@@ -75,6 +75,18 @@ export default class MMBApiList extends MMBApi {
     super.doApi(render, this.prefix, "WxGetUserInfo",
       { _user: user, session_key: sessionKey, encryptedData: encryptedData, iv: iv});
   }
+  
+  /**
+   * 查询用户信息
+   * @params sessionKey 用户登录后密匙
+   * @params encryptedData 加密的密匙、
+   * @params iv 解密的向量
+   */
+  findUserInfo(sessionKey, encryptedData, iv, call)
+  {
+    super.doApi(call, this.prefix, "WxGetUserInfo",
+      { _user: null, session_key: sessionKey, encryptedData: encryptedData, iv: iv });
+  }
 
   /**
    *  获取会员卡信息

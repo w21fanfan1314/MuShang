@@ -18,10 +18,12 @@ Page({
     phoneCode: undefined,
     // 是否已获取了验证码
     isGetCode: false,
-    phoneCodeText: "获取验证码"
+    phoneCodeText: "获取验证码",
+    // 性别
+    sex: 1
   },
 
-  onPhoneInput: function(e){
+  onPhoneInput: function (e) {
     this.setData({
       "user.mobile": e.detail.value
     })
@@ -45,12 +47,25 @@ Page({
     })
   },
 
+  onNameInput: function (e) {
+    this.setData({
+      "user.nickName": e.detail.value
+    })
+  },
+
+  onGenderInput: function (e) {
+    this.setData({
+      "sex": e.detail.value
+    })
+
+    this.data.user.gender = this.data.sex
+  },
+
   /**
    * 获取手机验证码
    */
   onGetPhoneCode: function () {
-    if (userObj.sendCode(this.data.user.mobile))
-    {
+    if (userObj.sendCode(this.data.user.mobile)) {
       // 开始倒计时
       this.setData({ isGetCode: true, phoneCodeText: MAX_TIME + "秒" })
       let count = MAX_TIME;
@@ -64,7 +79,7 @@ Page({
         }
       }, 1000)
     }
-    
+
   },
 
   /**
@@ -73,6 +88,7 @@ Page({
   onCommitUserInfo: function () {
     let user = this.data.user;
     let phone = this.data.user.mobile
+    let self = this;
     if (!phone || "" === phone) {
       this.dialog("手机号码不能为空")
       return;
@@ -86,17 +102,23 @@ Page({
         return;
       }
     }
+
+    if (userObj.successCode != this.data.phoneCode) {
+      this.dialog("输入的验证码错误")
+      return;
+    }
     wx.showLoading({
       title: '更新中...'
     });
 
-    userObj.save(this.data.user, ()=>{
+    userObj.save(this.data.user, () => {
       wx.showModal({
         title: '提示',
         content: '信息保存成功',
-        showCancel: false, 
-        confirmText:' 关闭'
-      })
+        showCancel: false,
+        confirmText: ' 关闭'
+      });
+      self.setData({ "phoneCode": '' })
     });
   },
 
@@ -106,7 +128,7 @@ Page({
       content: msg,
       showCancel: false,
       confirmText: '关闭'
-    })                                             
+    })
   },
 
   /**
@@ -114,7 +136,7 @@ Page({
    */
   onLoad: function (options) {
     let user = User.info();
-    this.setData({ "userPhone": user.mobile, "user": user});
+    this.setData({ "userPhone": user.mobile, "user": user, "sex": user.gender == '男' ? 1 : 0 });
   },
 
   /**

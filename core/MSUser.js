@@ -9,6 +9,8 @@ export default class MSUser {
   call = undefined;
   // 重试次数
   reapCount = 1;
+  // 正确的验证码
+  successCode = undefined;
 
   constructor() {
     this.apiList = new MMBApiList("MMB2BLL/MiniProgram/")
@@ -26,12 +28,13 @@ export default class MSUser {
    * 发送手机验证码
    */
   sendCode(phone) {
+    let self = this;
     let phoneTest = /^1\d{10}$/;
     if (phone && phone !== '' && phoneTest.test(phone)) {
       this.mmbApi.sendPhoneCode(phone, {
         onResp: (res) => {
           if (res.code === 1) {
-
+            self.successCode = res.data.validCode
           }
         }
       });
@@ -193,42 +196,61 @@ export default class MSUser {
           wx.getUserInfo({
             withCredentials: true,
             success: res => {
+              let localUserInfo = res;
+              console.log("localUserInfo", localUserInfo)
               // 通知更新界面的用户信息
               if (this.call && this.call.userInfoCall) {
                 this.call.userInfoCall(res.userInfo);
               }
               Object.assign(userInfo, res)
-              if (userInfo.GUID){
-                // 与本地数据同步
-                self._saveUserInfo(userInfo)
-                // 获取会员信息
-                self._fetchMemberCardInfo();
-                // 调用成功
-                if (this.call && this.call.success) {
-                  this.call.success();
-                }
-              } else {
-                // 与服务器同步
-                this.apiList.syncUserInfo(JSON.stringify(res.userInfo), userInfo.session_key, res.encryptedData, res.iv, {
-                  onResp: res => {
-                    if (res.code !== 1) {
-                      // 获取用户信息失败
-                      self._showReLoginDialog(res.msg)
-                    } else {
-                      // 获取用户信息成功
-                      Object.assign(userInfo, res.data)
-                      self._saveUserInfo(userInfo)
-                      // 获取会员信息
-                      self._fetchMemberCardInfo();
-                      // 调用成功
-                      if (this.call && this.call.success) {
-                        this.call.success();
-                      }
+              self.apiList.findUserInfo(userInfo.session_key, res.encryptedData, res.iv, {
+                onResp: (res)=>
+                {
+                  if (res.code != 1){
+                    wx.showModal({
+                      title: '查询个人信息错误',
+                      content: res.msg,
+                      showCancel: false, 
+                      confirmText: '关闭'
+                    });
+                    if (this.call && this.call.fail) {
+                      this.call.fail();
                     }
-                    // console.log(res)
+                  } else if (res.code === 1 && res.data && res.data.GUID)
+                  {
+                    Object.assign(userInfo, res.data)
+                    // 与本地数据同步
+                    self._saveUserInfo(userInfo)
+                    // 获取会员信息
+                    self._fetchMemberCardInfo();
+                    // 调用成功
+                    if (this.call && this.call.success) {
+                      this.call.success();
+                    }
+                  } else {
+                    // 与服务器同步
+                    this.apiList.syncUserInfo(JSON.stringify(localUserInfo.userInfo), userInfo.session_key, userInfo.encryptedData, userInfo.iv, {
+                      onResp: res => {
+                        if (res.code !== 1) {
+                          // 获取用户信息失败
+                          self._showReLoginDialog(res.msg)
+                        } else {
+                          // 获取用户信息成功
+                          Object.assign(userInfo, res.data)
+                          self._saveUserInfo(userInfo)
+                          // 获取会员信息
+                          self._fetchMemberCardInfo();
+                          // 调用成功
+                          if (this.call && this.call.success) {
+                            this.call.success();
+                          }
+                        }
+                        // console.log(res)
+                      }
+                    });
                   }
-                });
-              }
+                }
+              });
             }
           });
         } else {
@@ -255,7 +277,7 @@ export default class MSUser {
    */
   _fetchMemberCardInfo() {
     let self = this;
-    this.apiList.fetchMemberCards(1, 30, {
+    this.apiList.fetchMemberCards(30, 1, {
       onResp: res => {
         if (res && res.code === 1 && res.data && res.data.cardList && res.data.cardList.length > 0) {
           let userInfo = User.info();

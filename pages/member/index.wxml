@@ -28,7 +28,7 @@
             <view class="weui-label">姓名</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" type="text" placeholder="请输入您的名字" value='{{user.nickName}}' />
+            <input class="weui-input" type="text" placeholder="请输入您的名字" value='{{user.nickName}}' bindinput='onNameInput' />
           </view>
         </view>
         <view class='weui-cell'>
@@ -36,9 +36,9 @@
             <view for="" class="weui-label">性别</view>
           </view>
           <view class='weui-cell__bd'>
-            <radio-group>
-              <radio checked="{{user.gender == '男'}}">男</radio>
-              <radio style='margin-left:40rpx;' checked="{{user.gender == '女'}}">女</radio>
+            <radio-group bindchange="onGenderInput">
+              <radio checked="{{sex == 1}}" value='1'>男</radio>
+              <radio style='margin-left:40rpx;' checked="{{sex == 0}}" value='0'>女</radio>
             </radio-group>
           </view>
         </view>
