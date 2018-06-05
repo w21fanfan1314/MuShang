@@ -4,10 +4,10 @@
       <r-col col="8" offset="8">
         <view>
           <view bindtap='onUserHeaderClick'>
-            <image src='{{userInfo.userImage}}' class='image' binderror='onUserImageBindError'></image>
+            <image src='{{userInfo.avatarUrl}}' class='image' binderror='onUserImageBindError'></image>
           </view>
           <view bindtap='onUserClick'>
-            <text class="userName">{{userInfo.userName}}</text>
+            <text class="userName">{{userInfo.nickName}}</text>
           </view>
           <view>
             <text class='userId'>{{userInfo.userId}}</text>

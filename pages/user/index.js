@@ -1,17 +1,12 @@
 // pages/user/index.js
+import user from "../../net/user.js";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: {
-      userImage: '/assets/user-header.jpg',
-      userName: "<用户名>",
-      userId: "@ID",
-      integral: 0,
-      balance: 0
-    }
+    userInfo: null
   },
   onUserImageBindError: function (e) {
     this.setData({ "userInfo.userImage": '/assets/user-header.jpg' })
@@ -75,7 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({ "userInfo": user.info()})
   },
 
   /**

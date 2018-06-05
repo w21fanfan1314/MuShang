@@ -11,8 +11,34 @@ export default class MMBApiList extends MMBApi {
     this.prefix = __prefix;
   }
 
+
+  /**
+   * 发送手机验证码
+   * @params phone 手机号码
+   */
+  sendPhoneCode(phone, render)
+  {
+    super.doApi(render, this.prefix, "MemberCenterPage/GetVerificationCode", { "_phoneno": phone })
+  }
+
+
+  /**
+   * 查询门店下的所有优惠券
+   * @params status 优惠券状态
+   * @params products 根据物品获取可用的优惠券
+   * @params shopcode 门店标识
+   */
+  fetchCoupons(status, products, shopCode,page, pageCount, render)
+  {
+    super.doApi(render, this.prefix, "GetPlatformCoupon", 
+    { "_pagesize": page, "_pageno": pageCount, "_status": status , "_products": products, "_shopCode": shopCode })
+  }
+
   /**
    * 获取会员卡列表
+   * @params pageSize 每一页显示数据的数量
+   * @params pageOn 页数
+   * @params render 回调， 只返回第一张会员卡
    */
   fetchMemberCards(pageSize, pageOn, render)
   {

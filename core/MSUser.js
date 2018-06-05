@@ -12,6 +12,7 @@ export default class MSUser {
 
   constructor() {
     this.apiList = new MMBApiList("MMB2BLL/MiniProgram/")
+    this.mmbApi = new MMBApiList();
   }
 
   set respCount(val) {
@@ -19,6 +20,37 @@ export default class MSUser {
   }
   get respCount() {
     return this.reapCount;
+  }
+
+  /**
+   * 发送手机验证码
+   */
+  sendCode(phone) {
+    let phoneTest = /^1\d{10}$/;
+    if (phone && phone !== '' && phoneTest.test(phone)) {
+      this.mmbApi.sendPhoneCode(phone, {
+        onResp: (res) => {
+          if (res.code === 1) {
+
+          }
+        }
+      });
+      return true;
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '手机号码错误',
+        showCancel: false,
+        cancelText: '',
+        cancelColor: '',
+        confirmText: '关闭',
+        confirmColor: '',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }
+    return false;
   }
 
   /**
@@ -31,7 +63,7 @@ export default class MSUser {
     wx.checkSession({
       success: (res) => {
         let userInfo = User.info();
-        if (!userInfo) {
+        if (User.hasTimeout()) {
           console.log("本地未发现用户信息， 重新登录中...")
           // 如果本地没有保存信息则重新登录
           self._wxLogin();
@@ -43,8 +75,44 @@ export default class MSUser {
         // 登录已经过期
         console.log("登录已过期， 重新登录中...");
         self._wxLogin();
+        User.clear();
       }
     });
+  }
+
+  /**
+   * 保存用户信息
+   * @params userInfo 需要保存的用户信息
+   */
+  save(userInfo, suc) {
+    let self = this;
+    let local = User.info();
+    if (local) {
+      this.apiList.syncUserInfo(JSON.stringify(userInfo),
+        local.session_key,
+        local.encryptedData,
+        local.iv, {
+          onResp: (res) => {
+            if (1 === res.code) {
+              Object.assign(local, res.data)
+              // 与本地数据同步
+              self._saveUserInfo(local)
+              // 获取会员信息
+              self._fetchMemberCardInfo();
+              if (suc)
+                suc();
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: res.msg,
+                showCancel: false,
+                confirmText: '关闭'
+              })
+            }
+            wx.hideLoading();
+          }
+        });
+    }
   }
 
   /**
@@ -61,8 +129,7 @@ export default class MSUser {
             console.log(res);
             if (res && res.code === 1) {
               // 将用户信息保存到本地
-              self._saveUserInfo(res.data)
-              self._syncUserInfo();
+              self._saveUserInfo(res.data, true)
             } else {
               // 获取openID失败
               self._showReLoginDialog('用户登录失败，' + res.msg);
@@ -130,26 +197,38 @@ export default class MSUser {
               if (this.call && this.call.userInfoCall) {
                 this.call.userInfoCall(res.userInfo);
               }
-              // console.log(res);
-              this.apiList.syncUserInfo(JSON.stringify(res.userInfo), userInfo.session_key, res.encryptedData, res.iv, {
-                onResp: res => {
-                  if (res.code !== 1) {
-                    // 获取用户信息失败
-                    self._showReLoginDialog(res.msg)
-                  } else {
-                    // 获取用户信息成功
-                    Object.assign(userInfo, res.data)
-                    self._saveUserInfo(userInfo)
-                    // 调用成功
-                    if (this.call) {
+              Object.assign(userInfo, res)
+              if (userInfo.GUID){
+                // 与本地数据同步
+                self._saveUserInfo(userInfo)
+                // 获取会员信息
+                self._fetchMemberCardInfo();
+                // 调用成功
+                if (this.call && this.call.success) {
+                  this.call.success();
+                }
+              } else {
+                // 与服务器同步
+                this.apiList.syncUserInfo(JSON.stringify(res.userInfo), userInfo.session_key, res.encryptedData, res.iv, {
+                  onResp: res => {
+                    if (res.code !== 1) {
+                      // 获取用户信息失败
+                      self._showReLoginDialog(res.msg)
+                    } else {
+                      // 获取用户信息成功
+                      Object.assign(userInfo, res.data)
+                      self._saveUserInfo(userInfo)
+                      // 获取会员信息
+                      self._fetchMemberCardInfo();
+                      // 调用成功
                       if (this.call && this.call.success) {
                         this.call.success();
                       }
                     }
+                    // console.log(res)
                   }
-                  console.log(res)
-                }
-              });
+                });
+              }
             }
           });
         } else {
@@ -167,36 +246,51 @@ export default class MSUser {
           })
         }
       }
-    })
+    });
+  }
+
+
+  /**
+   * 获取会员卡信息
+   */
+  _fetchMemberCardInfo() {
+    let self = this;
+    this.apiList.fetchMemberCards(1, 30, {
+      onResp: res => {
+        if (res && res.code === 1 && res.data && res.data.cardList && res.data.cardList.length > 0) {
+          let userInfo = User.info();
+          Object.assign(userInfo, { member: res.data.cardList[0] });
+          console.log("获取会员卡:", userInfo)
+          self._saveUserInfo(userInfo);
+        }
+      }
+    });
   }
 
   /**
    * 保存用户到本地
    */
-  _saveUserInfo(userInfo) {
+  _saveUserInfo(userInfo, updateUserInfo) {
     let self = this;
-    console.log(userInfo)
-    wx.setStorage({
-      key: 'user.info',
-      data: userInfo,
-      success: function (res) {
-        console.log("更新用户信息:" + JSON.stringify(res))
-      },
-      fail: function (res) {
-        // 必须保证所有的信息保存完整
-        wx.showModal({
-          title: '警告',
-          content: '保存用户信息失败',
-          showCancel: false,
-          confirmText: "重试",
-          success: res => {
-            self.login();
-          }
-        })
-        self.login = false;
-        this.call(false)
-      },
-      complete: function (res) { },
-    })
+    // console.log(userInfo)
+    User.add(userInfo, function (res) {
+      console.log("更新用户信息:" + JSON.stringify(res))
+      if (updateUserInfo)
+        self._syncUserInfo();
+    }, function (res) {
+      // 必须保证所有的信息保存完整
+      wx.showModal({
+        title: '警告',
+        content: '保存用户信息失败',
+        showCancel: false,
+        confirmText: "重试",
+        success: res => {
+          self.login();
+        }
+      })
+      self.login = false;
+      this.call(false)
+    }
+    )
   }
 }
