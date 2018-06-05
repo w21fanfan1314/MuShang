@@ -21,8 +21,8 @@ export default class MSMember {
 
         if (res && res.code == 1) {
           if (callView) {
-            if (res.data && res.data.cardList && res.data.cardList.length > 0) {
-              callView.success(res.data.cardList[0])
+            if (res.data && res.data && res.data.length > 0) {
+              callView.success(res.data[0])
             } else {
               wx.showModal({
                 title: '提示',
