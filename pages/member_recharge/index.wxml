@@ -13,6 +13,6 @@
         </r-col>
       </block>
     </r-row>
-    <button type='' class='recharge_btn r_btn' hover-class='r_btn_hover'>支付￥{{selectRechargeItem.money}}</button>
+    <button type='' class='recharge_btn r_btn' hover-class='r_btn_hover' bindtap='onDoRechargeClick'>支付￥{{selectRechargeItem.money}}</button>
   </view>
 </scroll-view>

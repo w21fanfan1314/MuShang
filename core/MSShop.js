@@ -17,20 +17,28 @@ export default class MSShop {
   apiCall = undefined;
 
   constructor() {
-    let self = this;
-    wx.getStorage({
-      key: SHOP_INFO_KEY,
-      success: function (res) {
-        if (res.data && null != res.data)
-          self._shop = JSON.parse(res.data);
-      },
-    });
-    wx.getStorage({
-      key: SELECT_TABLE_KEY,
-      success: function (res) {
-        self._tableNo = res.data;
-      },
-    });
+    // let self = this;
+    // wx.getStorage({
+    //   key: SHOP_INFO_KEY,
+    //   success: function (res) {
+    //     if (res.data && null != res.data)
+    //       self._shop = JSON.parse(res.data);
+    //   },
+    // });
+    let shopData = wx.getStorageSync(SHOP_INFO_KEY)
+    if (shopData)
+    {
+      this._shop = JSON.parse(shopData);
+    }
+    // wx.getStorage({
+    //   key: SELECT_TABLE_KEY,
+    //   success: function (res) {
+    //     console.log("获取台号成功", res)
+    //     self._tableNo = res.data;
+    //   },
+    // });
+    this._tableNo = wx.getStorageSync(SELECT_TABLE_KEY)
+
 
     this._api = new MMBApiList("MMB2BLL/MiniProgram/")
   }

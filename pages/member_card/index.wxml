@@ -3,7 +3,7 @@
     <view class='member_card'>
       <view class='top'>
         <text class="member_card_type">{{memberCardInfo.cardType}}</text>
-        <r-icon type="card" bindtap='onCardClick'></r-icon>
+        <!-- <r-icon type="card" bindtap='onCardClick'></r-icon> -->
       </view>
       <view>
         <text class='member_card_no'>{{memberCardInfo.cardNo}}</text>

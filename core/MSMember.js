@@ -6,9 +6,60 @@ import MMBApiList from "MMBApiList.js";
 export default class MSMember {
   // API接口请求
   _api = new MMBApiList("MMB2BLL/MiniProgram/")
+  _mmbApi = new MMBApiList()
 
   constructor() {
 
+  }
+
+  /**
+   * 获取会员卡充值数据
+   */
+  memberChargeData(suc) {
+    this._api.memberChargeData({
+      onResp: (res) => {
+        if (res.code === 1) {
+          if (suc)
+          {
+            suc(res.data)
+          }
+        } else {
+          wx.showModal({
+            title: '获取会员充值数据错误',
+            content: res.msg,
+            showCancel: false,
+            confirmText: '关闭'
+          })
+        }
+      }
+    });
+  }
+
+  /**
+   * 获取会员充值记录
+   * @params cardNo 会员卡号
+   * @params page 分页， 页数
+   */
+  rechargeRecod(cardNo, page, suc) {
+    this._mmbApi.getMemberItemListPage(cardNo, page, 30, {
+      onResp: (res) => {
+        if (res.code === 1) {
+          if (suc) {
+            suc(res.data.DataList)
+          }
+        }
+        else {
+          wx.showModal({
+            title: '提示',
+            content: res.msg,
+            showCancel: false,
+            confirmText: '关闭'
+          })
+        }
+
+        wx.hideLoading()
+      }
+    })
   }
 
   /**

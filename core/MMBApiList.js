@@ -11,6 +11,20 @@ export default class MMBApiList extends MMBApi {
     this.prefix = __prefix;
   }
 
+  /**
+   * 获取会员卡充值支付数据
+   * @params rechargeId 充值数据的ID
+   * @params money 充值金额
+   */
+  payOrder_StoreValue(rechargeId, money, render)
+  {
+    super.doApi(render, this.prefix, "PayOrder_StoreValue", 
+      { 
+        "_rechargeId": rechargeId,
+        "_money": money
+      });
+  }
+
 
   /**
    * 发送手机验证码
@@ -97,6 +111,26 @@ export default class MMBApiList extends MMBApi {
   initMemberCenterIndexPage(render) {
     super.doApi(render, this.prefix, "MemberCenterPage/InitMemberCenterIndexPage")
   } 
+
+  /**
+   * 获取会员卡充值记录
+   * @params cardNo 会员卡号
+   * @params page 分页，页数
+   * @params max 分页，每页显示的数量
+   */
+  getMemberItemListPage(cardNo, page , max, render)
+  {
+    super.doApi(render, this.prefix, "MemberCenterPage/GetMemberItemListPage",
+      { _cardno: cardNo, _pageno: page, _pagesize: max})
+  }
+
+  /**
+   * 获取会员充值数据
+   */
+  memberChargeData(render)
+  {
+    super.doApi(render, this.prefix, "GetMemberChargeData")
+  }
 
   /**
    * 会员充值初始化接口

@@ -136,7 +136,7 @@ Page({
    */
   onLoad: function (options) {
     let user = User.info();
-    this.setData({ "userPhone": user.mobile, "user": user, "sex": user.gender == '男' ? 1 : 0 });
+    this.setData({ "userPhone": user.mobile, "user": user, "sex": user.gender == '男' ? 0 : 1 });
   },
 
   /**

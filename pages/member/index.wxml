@@ -37,8 +37,8 @@
           </view>
           <view class='weui-cell__bd'>
             <radio-group bindchange="onGenderInput">
-              <radio checked="{{sex == 1}}" value='1'>男</radio>
-              <radio style='margin-left:40rpx;' checked="{{sex == 0}}" value='0'>女</radio>
+              <radio checked="{{sex == 0}}" value='0'>男</radio>
+              <radio style='margin-left:40rpx;' checked="{{sex == 1}}" value='1'>女</radio>
             </radio-group>
           </view>
         </view>

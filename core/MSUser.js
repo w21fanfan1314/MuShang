@@ -204,20 +204,18 @@ export default class MSUser {
               }
               Object.assign(userInfo, res)
               self.apiList.findUserInfo(userInfo.session_key, res.encryptedData, res.iv, {
-                onResp: (res)=>
-                {
-                  if (res.code != 1){
+                onResp: (res) => {
+                  if (res.code != 1) {
                     wx.showModal({
                       title: '查询个人信息错误',
                       content: res.msg,
-                      showCancel: false, 
+                      showCancel: false,
                       confirmText: '关闭'
                     });
                     if (this.call && this.call.fail) {
                       this.call.fail();
                     }
-                  } else if (res.code === 1 && res.data && res.data.GUID)
-                  {
+                  } else if (res.code === 1 && res.data && res.data.GUID) {
                     Object.assign(userInfo, res.data)
                     // 与本地数据同步
                     self._saveUserInfo(userInfo)
@@ -279,11 +277,19 @@ export default class MSUser {
     let self = this;
     this.apiList.fetchMemberCards(30, 1, {
       onResp: res => {
-        if (res && res.code === 1 && res.data && res.data.cardList && res.data.cardList.length > 0) {
+        if (res && res.code === 1 && res.data && res.data.length > 0) {
           let userInfo = User.info();
-          Object.assign(userInfo, { member: res.data.cardList[0] });
+          Object.assign(userInfo, { member: res.data[0] });
           console.log("获取会员卡:", userInfo)
           self._saveUserInfo(userInfo);
+        }
+        else {
+          wx.showModal({
+            title: '会员卡获取失败',
+            content: res.msg,
+            showCancel: false,
+            confirmText:'关闭'
+          })
         }
       }
     });

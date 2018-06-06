@@ -63,17 +63,19 @@ Page({
       },
       success: function () {
         // 可进入系统
-        wx.switchTab({
-          url: '/pages/shop/index',
-          success: res=>
-          {
-            console.log(res)
-          },
-          fail: res=>{
-            console.log(res)
-          }
-        });
-        self.setData({ btnText: '授权进入', isLogin: false })
+        setTimeout(()=>{
+          wx.switchTab({
+            url: '/pages/shop/index',
+            success: res => {
+              console.log(res)
+            },
+            fail: res => {
+              console.log(res)
+            }
+          });
+          self.setData({ btnText: '授权进入', isLogin: false })
+        }, 1000)
+        
       },
       fail: function(){
         wx.showToast({

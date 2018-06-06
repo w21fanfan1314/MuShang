@@ -21,7 +21,7 @@ export default class MSCoupon
    */
   list(page, call)
   {
-    let shop = Shop.shop();
+    let shop = Shop.shop(); 
     this.api.fetchCoupons("all", null, shop.shopCode, page, this.MAX_SIZE, {
       onResp: function(res){
         if (res.code === 1){
