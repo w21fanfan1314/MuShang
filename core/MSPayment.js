@@ -32,6 +32,7 @@ export default class MSPayment
             confirmText:'关闭'
           })
         }
+        wx.hideLoading()
       }
     });
   }

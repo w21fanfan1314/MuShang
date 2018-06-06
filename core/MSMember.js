@@ -31,6 +31,7 @@ export default class MSMember {
             confirmText: '关闭'
           })
         }
+        wx.hideLoading()
       }
     });
   }

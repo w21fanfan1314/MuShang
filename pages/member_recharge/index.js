@@ -37,6 +37,9 @@ Page({
    * 支付
    */
   onDoRechargeClick: function(e){
+    wx.showLoading({
+      title: '拉去充值数据中...',
+    })
     this.vars.payment.memberPay(this.data.selectRechargeItem);
   },
 
@@ -44,7 +47,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.vars.member.memberChargeData((datas)=>{
+   
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    wx.showLoading({
+      title: '加载中...',
+    })
+    this.vars.member.memberChargeData((datas) => {
       let items = [];
       let selectPosition = 0;
       let count = datas.length
@@ -54,13 +67,6 @@ Page({
       }
       this.setData({ "rechargeItems": items, "selectPosition": 0, "selectRechargeItem": items[selectPosition] });
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
   },
 
   /**
