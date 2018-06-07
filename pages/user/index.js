@@ -12,28 +12,32 @@ Page({
     this.setData({ "userInfo.userImage": '/assets/user-header.jpg' })
   },
   onUserHeaderClick: function (e) {
-    var self = this;
-    wx.showActionSheet({
-      itemList: ["相机", "相册"],
-      success: function (ret) {
-        wx.chooseImage({
-          count: 1,
-          sourceType: ret.tapIndex == 0 ? "camera" : "album",
-          success: function (res) {
-            if (res.tempFilePaths && res.tempFilePaths.length > 0) {
-              var path = res.tempFilePaths[0];
-              console.log("path = ", path);
-              self.setData({"userInfo.userImage": path})
-            }
-          },
-          fail: function (msg) {
-            wx.showModal({
-              title: '警告',
-              content: '打开失败:' + msg
-            })
-          }
-        })
-      }
+    // var self = this;
+    // wx.showActionSheet({
+    //   itemList: ["相机", "相册"],
+    //   success: function (ret) {
+    //     wx.chooseImage({
+    //       count: 1,
+    //       sourceType: ret.tapIndex == 0 ? "camera" : "album",
+    //       success: function (res) {
+    //         if (res.tempFilePaths && res.tempFilePaths.length > 0) {
+    //           var path = res.tempFilePaths[0];
+    //           console.log("path = ", path);
+    //           self.setData({"userInfo.userImage": path})
+    //         }
+    //       },
+    //       fail: function (msg) {
+    //         wx.showModal({
+    //           title: '警告',
+    //           content: '打开失败:' + msg
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
+
+    wx.navigateTo({
+      url: '/pages/member/index',
     })
   },
   /**
