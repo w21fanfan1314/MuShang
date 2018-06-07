@@ -25,6 +25,20 @@ export default class MMBApiList extends MMBApi {
       });
   }
 
+  /**
+   * 执行会员充值
+   * @params rechargeId 充值数据ID
+   * @params billGUID 微信支付生成的guid
+   */
+  orderQuery_StoreValue(rechargeId, billGUID, render)
+  {
+    super.doApi(render, this.prefix, "OrderQuery_StoreValue",
+      {
+        "_rechargeId": rechargeId,
+        "_billGUID": billGUID
+      });
+  }
+
 
   /**
    * 发送手机验证码
@@ -45,7 +59,7 @@ export default class MMBApiList extends MMBApi {
   fetchCoupons(status, products, shopCode,page, pageCount, render)
   {
     super.doApi(render, this.prefix, "GetPlatformCoupon", 
-    { "_pagesize": page, "_pageno": pageCount, "_status": status , "_products": products, "_shopCode": shopCode })
+      { "_pagesize": pageCount, "_pageno": page, "_status": status , "_products": products, "_shopCode": shopCode })
   }
 
   /**

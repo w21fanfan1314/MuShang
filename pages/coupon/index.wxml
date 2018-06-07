@@ -15,14 +15,19 @@
           </r-col>
           <r-col col="15">
             <view class='content'>
-               <r-tag type="warn" class="type">{{coupon.type}}</r-tag>
-               <text class="date">{{coupon.indate}}</text>
+              <r-tag type="warn" class="type">{{coupon.type}}</r-tag>
+              <text class="date">{{coupon.indate}}</text>
               <r-btn type="danger" size="mini" plain="false" class="buttons">立即使用</r-btn>
             </view>
           </r-col>
         </r-row>
       </view>
-    <view class="coupon-disabled" wx:if="{{!coupon.isExpire}}"><text>过期</text></view>
+      <view class="coupon-disabled" wx:if="{{!coupon.isExpire}}">
+        <text>过期</text>
+      </view>
     </view>
   </block>
+  <view class='bottom-text'>
+    <text wx:if="{{!isMore}}">无更多优惠券</text>
+  </view>
 </scroll-view>

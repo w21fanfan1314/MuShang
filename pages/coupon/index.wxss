@@ -4,7 +4,18 @@
 .coupon-info {
   background-color: #eee;
   height: 100%;
-  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.bottom-text
+{
+  font-size: .7rem;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 24rpx;
+  margin-top: 24rpx;
 }
 
 .coupon-list-item{

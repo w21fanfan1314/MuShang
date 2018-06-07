@@ -14,7 +14,7 @@ Page({
     temp_success_id: "9S4FDvX_FyYokdwCzh6AiBu2F7NFFHyPPZM6KKV_VK4"
   },
   vars: {
-    payment : new MSPayment(),
+    payment: new MSPayment(),
     member: new MSMember()
   },
   onSelectRechargeItem: function (e) {
@@ -36,18 +36,42 @@ Page({
   /**
    * 支付
    */
-  onDoRechargeClick: function(e){
+  onDoRechargeClick: function (e) {
     wx.showLoading({
       title: '拉去充值数据中...',
     })
-    this.vars.payment.memberPay(this.data.selectRechargeItem);
+    let self = this;
+    this.vars.payment.memberPay(this.data.selectRechargeItem, (payInfo, guid) => {
+      wx.requestPayment({
+        timeStamp: payInfo.timeStamp,
+        nonceStr: payInfo.nonceStr,
+        package: payInfo.package,
+        signType: payInfo.signType,
+        paySign: payInfo.paySign,
+        success: (res) => {
+          self.vars.payment.recharge(self.data.selectRechargeItem, guid);
+        },
+        fail: (res) => {
+          console.log(res)
+          if (res.errMsg != "requestPayment:fail cancel") {
+            wx.showModal({
+              title: '警告',
+              content: res.errMsg,
+              showCancel: false,
+              confirmText: '关闭'
+            })
+          }
+          wx.hideLoading();
+        }
+      })
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+
   },
 
   /**

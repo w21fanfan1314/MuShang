@@ -6,6 +6,7 @@
     "r-row":"/zanui-weapp/dist/row/index",
     "r-col": "/zanui-weapp/dist/col/index",
     "r-tag":"/zanui-weapp/dist/tag/index",
-    "r-btn": "/zanui-weapp/dist/btn/index"
+    "r-btn": "/zanui-weapp/dist/btn/index",
+    "r-toast": "/zanui-weapp/dist/toast/index"
   }
 }

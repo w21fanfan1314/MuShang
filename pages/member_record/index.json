@@ -1,8 +1,10 @@
 {
   "navigationBarTitleText": "消费记录",
   "enablePullDownRefresh": true,
+  "backgroundColor": "#eee",
   "usingComponents": {
     "r-cell":"/zanui-weapp/dist/cell/index",
-    "r-cell-group":"/zanui-weapp/dist/cell-group/index"
+    "r-cell-group":"/zanui-weapp/dist/cell-group/index",
+    "r-toast":"/zanui-weapp/dist/toast/index"
   }
 }

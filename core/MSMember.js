@@ -7,7 +7,7 @@ export default class MSMember {
   // API接口请求
   _api = new MMBApiList("MMB2BLL/MiniProgram/")
   _mmbApi = new MMBApiList()
-
+  max = 30;
   constructor() {
 
   }
@@ -42,7 +42,7 @@ export default class MSMember {
    * @params page 分页， 页数
    */
   rechargeRecod(cardNo, page, suc) {
-    this._mmbApi.getMemberItemListPage(cardNo, page, 30, {
+    this._mmbApi.getMemberItemListPage(cardNo, page, this.max, {
       onResp: (res) => {
         if (res.code === 1) {
           if (suc) {
@@ -57,8 +57,8 @@ export default class MSMember {
             confirmText: '关闭'
           })
         }
-
-        wx.hideLoading()
+        wx.stopPullDownRefresh();
+        wx.hideLoading();
       }
     })
   }

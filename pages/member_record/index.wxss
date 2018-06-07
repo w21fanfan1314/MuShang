@@ -1,16 +1,29 @@
 /* pages/member_record/index.wxss */
+
+
 .record_info{
-  background-color: #eee;
-  position: fixed;
+  background-color: #fff;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
-.record_info .info_list{
-  margin-top: 1px;
-  background-color: white;
+.record_item{
+  width: 100%;
+  border-bottom: 1rpx solid #eee;
 }
 
 .money {
   color: red;
   font-size: 14px;
+}
+
+.bottom-text
+{
+  font-size: .7rem;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 24rpx;
+  margin-top: 24rpx;
 }
