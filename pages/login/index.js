@@ -26,7 +26,7 @@ Page({
   /**
    * 获取用户授权信息
    */
-  onGetUserInfo:function(res){
+  onGetUserInfo: function (res) {
     console.log(res)
     this.data.user.reapCount = 1
     this.callLogin();
@@ -35,17 +35,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let shop = new MSShop();
-    let site = options[SITE_NO];
-    let lid = options[LID];
-    let server = options[SERVER];
 
+    let opts = undefined;
+    if (options["q"]) {
+      opts = decodeURIComponent(options["q"]);
+    }
+    if (!opts) {
+      opts = options;
+    }
+    let site = opts[SITE_NO];
+    let lid = opts[LID];
+    let server = opts[SERVER];
+    // 最先设置门店地址
+    wx.setStorageSync("shop.server", server)
+
+    let shop = new MSShop();
     shop.tableNo = site;
     shop.getShopInfoByCode(lid)
-    
+
     let self = this;
     // 在获取完成门店数据后， 在请求用户信息接口
-    shop.apiCall = ()=>{
+    shop.apiCall = () => {
       self.data.user = new MSUser();
       self.callLogin();
     }
@@ -54,7 +64,7 @@ Page({
   /**
    * 调用用户登录授权流程
    */
-  callLogin: function(){
+  callLogin: function () {
     let self = this;
     self.setData({ btnText: '登录中', isLogin: true })
     this.data.user.login({
@@ -63,7 +73,7 @@ Page({
       },
       success: function () {
         // 可进入系统
-        setTimeout(()=>{
+        setTimeout(() => {
           wx.switchTab({
             url: '/pages/shop/index',
             success: res => {
@@ -75,15 +85,15 @@ Page({
           });
           self.setData({ btnText: '授权进入', isLogin: false })
         }, 1000)
-        
+
       },
-      fail: function(){
+      fail: function () {
         wx.showToast({
           title: '请点击 授权进入',
           icon: "none",
           duration: 2000
         })
-        self.setData({btnText:'授权进入', isLogin: false})
+        self.setData({ btnText: '授权进入', isLogin: false })
       }
     });
   },
@@ -92,48 +102,48 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

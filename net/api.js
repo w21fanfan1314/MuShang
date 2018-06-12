@@ -3,13 +3,7 @@ var user = require("user.js");
 
 function server()
 {
-  let data = wx.getStorageSync("shop.info")
-  
-  if (data)
-  {
-    return JSON.parse(data)
-  }
-  return undefined;
+  return wx.getStorageSync("shop.server")
 }
 /**
    * 执行网络请求
@@ -22,7 +16,7 @@ const MMBApi = function (action, prefix) {
   // 接口加密方式
   const TYPE_TOKEN = "xor";
   // 接口基础的地址
-  const BASE_URL = "https://yfxcx.taole789.com.cn/MMB/Api/RRRAPI.ashx";
+  const BASE_URL = "https://" +server()+ "/MMB/Api/RRRAPI.ashx";
 
   // 当前对象
   let self = this;

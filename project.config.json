@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -63,6 +63,13 @@
 					"pathName": "pages/notfound/index",
 					"query": "",
 					"scene": "1001"
+				},
+				{
+					"id": 5,
+					"name": "普通二维码登陆",
+					"pathName": "pages/login/index",
+					"query": "lid=8888&server=yfxcx.taole789.com.cn&site=01",
+					"scene": "1047"
 				}
 			]
 		}

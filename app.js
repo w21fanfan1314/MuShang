@@ -5,6 +5,9 @@ App({
       case 1011:
       case 1012:
       case 1013:
+      case 1047:
+      case 1048:
+      case 1049:
         // 通过二维码进入小程序
        
         break;

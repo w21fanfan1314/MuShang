@@ -1,6 +1,7 @@
 <view class="page">
   <view class="page__bd">
-    <view class='member_card'>
+   
+    <view class='member_card' style='background-image: url({{memberCardInfo.image}});'>
       <view class='top'>
         <text class="member_card_type">{{memberCardInfo.cardType}}</text>
         <!-- <r-icon type="card" bindtap='onCardClick'></r-icon> -->

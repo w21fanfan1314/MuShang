@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    memberCardInfo: {infos: [], cardType:'', cardNo:''},
+    memberCardInfo: {infos: [], cardType:'', cardNo:'', image :''},
     showCardQRCode: false
   },
 
@@ -29,9 +29,11 @@ Page({
     });
     member.cardList({
       success: (card)=>{
+        //card.CoverImage
         self.setData({ memberCardInfo: {
           cardNo: card.cardNo,
           cardType: card.cardType,
+          image: card.CoverImage,
           infos: [
             { title: '姓名', text: card.cardCreatorName},
             { title: '手机号', text: card.cardCreatorPhone },
@@ -54,11 +56,11 @@ Page({
   onReady: function () {
     var infos = [];
 
-    infos[0] = {"title":"姓名", "text": "猪猪大人"}
-    infos[1] = { "title": "手机号", "text": "183****1742" }
-    infos[2] = { "title": "性别", "text": "女" }
-    infos[3] = { "title": "生日", "text": "1992-10-01" }
-    infos[4] = { "title": "邮箱", "text": "980***294@qq.com" }
+    infos[0] = {"title":"姓名", "text": ""}
+    infos[1] = { "title": "手机号", "text": "" }
+    infos[2] = { "title": "性别", "text": "" }
+    infos[3] = { "title": "生日", "text": "" }
+    infos[4] = { "title": "邮箱", "text": "" }
 
     this.setData({ "memberCardInfo": { infos: infos}});
   },
